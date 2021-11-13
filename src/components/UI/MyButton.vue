@@ -8,9 +8,9 @@ export default {
   name: 'my-button'
 }
 </script>
-<style>
+<style scoped>
    button{
-    height: 30px;
+    height: 40px;
     width: 100px;
     background-color: transparent;
     border: 1px solid teal;

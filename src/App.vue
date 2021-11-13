@@ -1,9 +1,17 @@
 <template>
   <div class="container">
     <h1>Todo Application</h1>
-    <add-post
-      @addPostHandler="addPost"
-    />
+    <my-button 
+      style="margin-top: 10px"
+      @click="showModal"
+    >
+      Создать пост
+    </my-button>
+    <modal v-model:show="modalVisible">
+      <add-post
+        @addPostHandler="addPost"
+      />
+    </modal>
     <post-list
       :posts="posts"
       @removePost="removePostHandler"
@@ -14,9 +22,10 @@
 <script>
 import PostList from './components/PostList'
 import AddPost from './components/AddPost'
+import Modal from './components/Modal'
 export default {
   components: {
-    PostList, AddPost
+    PostList, AddPost, Modal
   },
   data(){
     return{
@@ -25,14 +34,22 @@ export default {
         {id: 2, title: 'Javascript', body: 'Изучать легко!'},
         {id: 3, title: 'Javascript', body: 'Можно создать всё!'},
       ],
+      modalVisible: false
     }
   },
   methods: {
+    closeModal(){
+      this.modalVisible = false
+    },
+    showModal(){
+      this.modalVisible = true
+    },
     removePostHandler(id){
       this.posts = this.posts.filter(p => p.id !== id)
     },
     addPost(post){
       this.posts.push(post)
+      this.modalVisible = false
     }
   }
 }

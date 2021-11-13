@@ -1,7 +1,13 @@
 <template>
   <form @submit.prevent="addPost">
-    <input v-model="title" type="text" placeholder="Название">
-    <input v-model="body" type="text" placeholder="Текст">
+    <my-input 
+      v-model="title"
+      placeholder="Название..."
+    />
+    <my-input 
+      v-model="body"
+      placeholder="Информация..."
+    />
     <my-button type="submit">создать</my-button>
   </form>
 </template>
@@ -18,6 +24,7 @@ export default {
         id: Date.now()
       }
       this.$emit('addPostHandler', newPost)
+      this.show = false
       this.title = ''
       this.body = ''
     }
@@ -35,12 +42,5 @@ export default {
     display: flex;
     flex-direction: column;
   }
-  input {
-    height: 40px;
-    margin-top: 10px;
-    padding: 5px;
-    outline: none;
-    border: 2px solid teal;
-  }
- 
+
 </style>
