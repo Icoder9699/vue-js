@@ -7,34 +7,41 @@
     >
       Создать пост
     </my-button>
-    <modal v-model:show="modalVisible">
+    <modal 
+      v-model:show="modalVisible"
+    >
       <add-post
         @addPostHandler="addPost"
       />
     </modal>
+    <select v-model="selectedSort">
+      <option value="all">Все</option>]
+      <option value="title">По названию</option>]
+      <option value="body">По текст</option>]
+    </select>
     <post-list
+      v-if="!isLoading"
       :posts="posts"
       @removePost="removePostHandler"
     />
-
+    <h2 v-else>Загрузка...</h2>
   </div>
 </template>
 <script>
 import PostList from './components/PostList'
 import AddPost from './components/AddPost'
 import Modal from './components/Modal'
+import axios from 'axios'
 export default {
   components: {
     PostList, AddPost, Modal
   },
   data(){
     return{
-      posts: [
-        {id: 1, title: 'Javascript', body: 'Мощный язык'},
-        {id: 2, title: 'Javascript', body: 'Изучать легко!'},
-        {id: 3, title: 'Javascript', body: 'Можно создать всё!'},
-      ],
-      modalVisible: false
+      posts: [],
+      modalVisible: false,
+      isLoading: true,
+      selectedSort: 'all'
     }
   },
   methods: {
@@ -50,8 +57,22 @@ export default {
     addPost(post){
       this.posts.push(post)
       this.modalVisible = false
+    },
+    async fetchData(){
+        const resp = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10?_sort=' + this.selectedSort)
+        console.log(resp.data);
+        this.posts = resp.data
+        this.isLoading = false
     }
-  }
+  },
+  watch: {
+    selectedSort(newValue){
+      this.fetchData(newValue)
+    }
+  },
+  mounted(){
+    this.fetchData()
+  },
 }
 </script>
 
@@ -65,5 +86,10 @@ export default {
     width: 500px;
     margin: 50px auto;
   }
-  
+  select{
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin: 10px 0;
+  }
 </style>

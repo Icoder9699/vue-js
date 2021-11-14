@@ -1,10 +1,17 @@
 <template>
  <li>
-    <p>
-      <strong>{{index + 1}}.&nbsp;Название {{post.title}}&nbsp;</strong>
-      {{post.body}}
-    </p>
-    <my-button @click="this.$emit('removePost', post.id)">Delete</my-button>    
+    <div>
+      <strong>{{post.id}}.&nbsp;Название {{post.title}}</strong>
+      <hr/>
+      <p>{{post.body}}</p>
+    </div>
+    <my-button 
+      style="width: 70px; height: 20px;"
+      @click="this.$emit('removePost', post.id)"
+      class="red"
+    >
+      Delete
+    </my-button>    
   </li>
 </template>
 <script>
@@ -26,14 +33,14 @@ export default {
 </script>
 <style >
   li{
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
-    align-items: center;
+    align-items: center !important;
     margin-bottom: 10px;
     padding: 5px;
     border: 1px solid teal;
-    height: 40px;
-    display: flex;
-    align-items: center;
+  }
+  button{
+    margin: 0;
   }
 </style>

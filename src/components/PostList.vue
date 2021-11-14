@@ -1,5 +1,5 @@
 <template>
- <ul> 
+ <ul v-if="posts.length"> 
     <post-item
       v-for="(post, i) in posts"
       :post="post"
@@ -8,6 +8,12 @@
       @removePost="removePost"
     />
   </ul>
+  <h3 
+    v-else 
+    style="margin-top: 10px; text-align: center;"
+  >
+    Пока постов нет
+  </h3>
 </template>
 <script>
 import PostItem from './PostItem.vue';
@@ -18,6 +24,11 @@ export default {
       type: Array,
       required: true
     }
+  },
+  data(){
+    return{
+
+  }
   },
   methods: {
     removePost(id){

@@ -1,11 +1,11 @@
 <template>
-  <button> 
+  <button > 
     <slot></slot>
   </button>
 </template>
 <script>
 export default {
-  name: 'my-button'
+  name: 'my-button',
 }
 </script>
 <style scoped>
@@ -19,6 +19,14 @@ export default {
     align-self: flex-end;
     cursor: pointer;
     border-radius: 2px;
+  }
+  .red {
+    border-color: red;
+    color: red;
+  }
+  .red:hover{
+    background: red;
+    color: #fff;
   }
   button:hover{
     background: teal;
